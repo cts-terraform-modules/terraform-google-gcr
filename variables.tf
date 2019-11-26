@@ -20,11 +20,11 @@ variable "project" {
 
 variable "image_region" {
   description = "The region of the GCR's storage. Can be one of eu, us, asia or \"\". If blank, the GCR will be global."
-  default = ""
+  default     = ""
 }
 
 variable "public" {
   description = "Whether the GCR is public or not."
-  type = bool
-  default = false
+  type        = bool
+  default     = false
 }

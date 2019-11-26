@@ -23,5 +23,5 @@ module "gcr" {
 
   project      = var.project
   image_region = var.image_region
-  public = true
+  public       = true
 }
