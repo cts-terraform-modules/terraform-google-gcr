@@ -28,14 +28,16 @@ Functional examples are included in the
 
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
-| bucket\_name | The name of the bucket to create | string | n/a | yes |
-| project\_id | The project ID to deploy to | string | n/a | yes |
+| image\_region | The region of the GCR's storage. Can be one of eu, us, asia or "". If blank, the GCR will be global. | string | `""` | no |
+| project | The project ID to deploy to. | string | n/a | yes |
+| public | Whether the GCR is public or not. | bool | `"false"` | no |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| bucket\_name |  |
+| gcr\_bucket |  |
+| gcr\_url |  |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
