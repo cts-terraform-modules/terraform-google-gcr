@@ -7,5 +7,5 @@ else
 fi
 
 { gsutil ls ${URL} >/dev/null && echo "Bucket already exists"; } || \
-{ gcloud --project $PROJECT builds submit --tag $IMAGE_NAME .;
+{ gcloud --project $PROJECT builds submit --tag $IMAGE_NAME ${DOCKERFILE_PATH} && \
 gcloud container images delete $IMAGE_NAME --quiet --force-delete-tags; }
