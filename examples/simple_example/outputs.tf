@@ -15,9 +15,9 @@
  */
 
 output "gcr_bucket" {
-  value = module.gcr.gcr_bucket_name
+  value = module.gcr.gcr_bucket
 }
 
 output "gcr_url" {
-  value = module.gcr.gcr_bucket_self_link
+  value = module.gcr.gcr_url
 }
