@@ -19,7 +19,7 @@ variable "project" {
 }
 
 variable "image_region" {
-  description = "The location of the registry. One of ASIA, EU, US or not specified. If not specified, the registry will be global."
+  description = "The region of the GCR's storage. Can be one of eu, us, asia or \"\". If blank, the GCR will be global."
   default     = ""
 }
 
