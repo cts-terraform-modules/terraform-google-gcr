@@ -28,7 +28,7 @@ Functional examples are included in the
 
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
-| image\_region | The region of the GCR's storage. Can be one of eu, us, asia or "". If blank, the GCR will be global. | string | `""` | no |
+| image\_region | The location of the registry. One of ASIA, EU, US or not specified. If not specified, the registry will be global. | string | `""` | no |
 | project | The project ID to deploy to. | string | n/a | yes |
 | public | Whether the GCR is public or not. | bool | `"false"` | no |
 
@@ -36,8 +36,8 @@ Functional examples are included in the
 
 | Name | Description |
 |------|-------------|
-| gcr\_bucket |  |
-| gcr\_url |  |
+| gcr\_bucket\_name | The URI of the created resource. |
+| gcr\_bucket\_self\_link | The name of the bucket that supports the Container Registry. In the form of artifacts.{project}.appspot.com or {location}.artifacts.{project}.appspot.com if location is specified. |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
@@ -50,7 +50,7 @@ These sections describe requirements for using this module.
 The following dependencies must be available:
 
 - [Terraform][terraform] v0.12
-- [Terraform Provider for GCP][terraform-provider-gcp] plugin v2.0
+- [Terraform Provider for GCP][terraform-provider-gcp] plugin v3.9.0
 
 ### Service Account
 
