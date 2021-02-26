@@ -1,0 +1,20 @@
+if [ -f /etc/bash_completion ] && ! shopt -oq posix; then 
+. /etc/bash_completion
+fi
+
+source <(kubectl completion bash)
+
+alias k='kubectl'
+complete -F __start_kubectl k
+
+# set some output colours
+RED='\033[0;31m'
+NC='\033[0m' # No Color
+ANNOUNCE='\033[38;5;11m'
+
+export EDITOR=vim
+
+# Set locales
+export LC_ALL=C.UTF-8
+export LANG=C.UTF-8
+export USER=vscode # Needed for argocd binary to run

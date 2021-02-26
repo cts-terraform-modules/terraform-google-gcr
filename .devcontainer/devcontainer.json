@@ -1,0 +1,35 @@
+// See https://aka.ms/vscode-remote/devcontainer.json for format details.
+{
+	"name": "Exemplar Env",
+	"dockerFile": "Dockerfile",
+	"extensions": [
+		"mauve.terraform",
+		"ms-azuretools.vscode-docker",
+		"ms-azuretools.vscode-docker",
+		"ms-azuretools.vscode-docker",
+		"ms-kubernetes-tools.vscode-kubernetes-tools",
+		"eamodio.gitlens",
+		"redhat.vscode-yaml",
+		"ms-vsliveshare.vsliveshare",
+		"hashicorp.terraform"
+	],
+	"mounts": [
+		"source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind",
+		"source=${localEnv:HOME}${localEnv:USERPROFILE}/.config,target=/home/vscode/.config,type=bind"
+	],
+	"settings": {
+		"remote.extensionKind": {
+			"ms-azuretools.vscode-docker": "workspace",
+		},
+		"terraform.languageServer": {
+			"enabled": false,
+			"args": []
+		},
+		"terraform.indexing": {
+			"enabled": false,
+			"liveIndexing": false,
+			"exclude": []
+		},
+	},
+	"postCreateCommand": "sudo chown vscode:vscode /var/run/docker.sock"
+}
