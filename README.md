@@ -27,10 +27,10 @@ Functional examples are included in the
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|:----:|:-----:|:-----:|
-| image\_region | The location of the registry. One of ASIA, EU, US or not specified. If not specified, the registry will be global. | string | `""` | no |
-| project | The project ID to deploy to. | string | n/a | yes |
-| public | Whether the GCR is public or not. | bool | `"false"` | no |
+|------|-------------|------|---------|:--------:|
+| image\_region | The location of the registry. One of ASIA, EU, US or not specified. If not specified, the registry will be global. | `string` | `""` | no |
+| project | The project ID to deploy to. | `any` | n/a | yes |
+| public | Whether the GCR is public or not. | `bool` | `false` | no |
 
 ## Outputs
 

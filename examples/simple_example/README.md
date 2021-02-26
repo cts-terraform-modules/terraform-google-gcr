@@ -6,16 +6,16 @@ This example illustrates how to use the `gcr` module.
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|:----:|:-----:|:-----:|
-| image\_region | The region of the GCR's storage. Can be one of eu, us, asia or "". If blank, the GCR will be global. | string | n/a | yes |
-| project | The ID of the project in which to provision resources. | string | n/a | yes |
+|------|-------------|------|---------|:--------:|
+| image\_region | The region of the GCR's storage. Can be one of eu, us, asia or "". If blank, the GCR will be global. | `string` | n/a | yes |
+| project | The ID of the project in which to provision resources. | `string` | n/a | yes |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| gcr\_bucket |  |
-| gcr\_url |  |
+| gcr\_bucket | n/a |
+| gcr\_url | n/a |
 
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
