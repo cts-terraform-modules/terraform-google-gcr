@@ -1,0 +1,4 @@
+name: simple_example
+depends:
+  - name: inspec-gcp
+    git: https://github.com/inspec/inspec-gcp

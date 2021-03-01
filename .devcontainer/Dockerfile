@@ -1,47 +1,40 @@
-# Note: You can use any Debian/Ubuntu based image you want.
-FROM mcr.microsoft.com/vscode/devcontainers/base:0-buster
+# See here for image contents: https://github.com/microsoft/vscode-dev-containers/tree/v0.158.0/containers/ruby/.devcontainer/base.Dockerfile
 
-# [Option] Install zsh
-ARG INSTALL_ZSH="true"
-# [Option] Upgrade OS packages to their latest versions
-ARG UPGRADE_PACKAGES="false"
-# [Option] Enable non-root Docker access in container
-ARG ENABLE_NONROOT_DOCKER="true"
-# [Option] Use the OSS Moby Engine instead of the licensed Docker Engine
-ARG USE_MOBY="true"
+# [Choice] Ruby version: 3, 3.0, 2, 2.7, 2.6, 2.5
+ARG VARIANT="3"
+FROM mcr.microsoft.com/vscode/devcontainers/ruby:0-${VARIANT}
 
-# Install needed packages and setup non-root user. Use a separate RUN statement to add your
-# own dependencies. A user of "automatic" attempts to reuse an user ID if one already exists.
-ARG USERNAME=automatic
-ARG USER_UID=1000
-ARG USER_GID=$USER_UID
-COPY library-scripts/*.sh /tmp/library-scripts/
-RUN apt-get update \
-    && /bin/bash /tmp/library-scripts/common-debian.sh "${INSTALL_ZSH}" "${USERNAME}" "${USER_UID}" "${USER_GID}" "${UPGRADE_PACKAGES}" \
-    # Use Docker script from script library to set things up
-    && /bin/bash /tmp/library-scripts/docker-in-docker-debian.sh "${ENABLE_NONROOT_DOCKER}" "${USERNAME}" "${USE_MOBY}" \
-    # Clean up
-    && apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/* /tmp/library-scripts/
+# [Option] Install Node.js
+ARG INSTALL_NODE="false"
+ARG NODE_VERSION="lts/*"
+RUN if [ "${INSTALL_NODE}" = "true" ]; then su vscode -c "umask 0002 && . /usr/local/share/nvm/nvm.sh && nvm install ${NODE_VERSION} 2>&1"; fi
 
-VOLUME [ "/var/lib/docker" ]
-
-# Setting the ENTRYPOINT to docker-init.sh will start up the Docker Engine
-# inside the container "overrideCommand": false is set in devcontainer.json.
-# The script will also execute CMD if you need to alter startup behaviors.
-ENTRYPOINT [ "/usr/local/share/docker-init.sh" ]
-CMD [ "sleep", "infinity" ]
-
-# [Optional] Uncomment this section to install additional OS packages.
+# Install additional OS packages.
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
     && apt-get -y install --no-install-recommends \
-    make
-# <your-package-list-here>
-
-# Install Gcloud, and Python Apis (curl and apt-utils need to be installed first)
-RUN echo "deb http://packages.cloud.google.com/apt cloud-sdk main" > /etc/apt/sources.list.d/google-cloud-sdk.list && \
-    curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - && \
-    apt-get update -y && \
-    apt-get -y install --no-install-recommends \
-    google-cloud-sdk \
-    python3-google-auth \
+    python3-pip \
     2>&1
+
+# Install pre-commit
+RUN pip3 install pre-commit
+
+# Install additional gems.
+# RUN bundle install
+
+# Install global node packages.
+RUN su vscode -c "source /usr/local/share/nvm/nvm.sh && \
+    npm install -g \
+    markdownlint-cli \
+    " 2>&1
+
+# Install Terraform
+ENV TERRAFORM_VERSION=0.13.6
+RUN curl -sL https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip > terraform_${TERRAFORM_VERSION}_linux_amd64.zip && \
+    unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip -d /bin && \
+    rm -f terraform_${TERRAFORM_VERSION}_linux_amd64.zip
+
+# Install terraform-docs
+ENV TERRAFORM_DOCS_VERSION=0.11.2
+RUN curl -SL https://github.com/terraform-docs/terraform-docs/releases/download/v${TERRAFORM_DOCS_VERSION}/terraform-docs-v${TERRAFORM_DOCS_VERSION}-$(uname)-amd64.tar.gz > terraform-docs.tar.xz && \
+    tar xzf terraform-docs.tar.xz -C /bin && \
+    rm -f terraform-docs.tar.xz
