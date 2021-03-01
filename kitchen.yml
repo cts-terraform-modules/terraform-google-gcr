@@ -15,8 +15,13 @@
 ---
 driver:
   name: terraform
-  variable_files:
-    - test/integration/default/terraform.tfvars
+  # see https://github.com/newcontext-oss/kitchen-terraform/issues/390
+  # variable_files:
+  #   - test/integration/default/terraform.tfvars
+  variables:
+    image_region: EU
+    project: test-kitchen-testing-8
+    public: "false"
 
 provisioner:
   name: terraform
@@ -29,15 +34,13 @@ platforms:
 
 suites:
   - name: default
-    driver:
-      root_module_directory: test/fixtures/simple_example/
     verifier:
       systems:
-        - name: local
-          backend: local
-          controls:
-            - local-tests
         - name: gcp
           backend: gcp
           controls:
             - gcp-tests
+        - name: local
+          backend: local
+          controls:
+            - local-tests

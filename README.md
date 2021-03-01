@@ -48,6 +48,7 @@ No Modules.
 | Name |
 |------|
 | [google_container_registry](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/container_registry) |
+| [google_project_service](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/project_service) |
 | [google_storage_bucket_acl](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/storage_bucket_acl) |
 | [google_storage_default_object_access_control](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/storage_default_object_access_control) |
 

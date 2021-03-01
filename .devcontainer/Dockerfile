@@ -4,30 +4,36 @@
 ARG VARIANT="3"
 FROM mcr.microsoft.com/vscode/devcontainers/ruby:0-${VARIANT}
 
-# [Option] Install Node.js
+# Install node
 ARG INSTALL_NODE="false"
 ARG NODE_VERSION="lts/*"
 RUN if [ "${INSTALL_NODE}" = "true" ]; then su vscode -c "umask 0002 && . /usr/local/share/nvm/nvm.sh && nvm install ${NODE_VERSION} 2>&1"; fi
 
-# Install additional OS packages.
-RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
-    && apt-get -y install --no-install-recommends \
+# Install additional OS packages
+RUN echo "deb http://packages.cloud.google.com/apt cloud-sdk main" > /etc/apt/sources.list.d/google-cloud-sdk.list && \
+    curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - && \
+    apt-get update && export DEBIAN_FRONTEND=noninteractive && \
+    apt-get -y install --no-install-recommends \
     python3-pip \
+    google-cloud-sdk \
+    python3-google-auth \
     2>&1
 
-# Install pre-commit
-RUN pip3 install pre-commit
+# Install python packages
+RUN pip3 install --upgrade \
+    google-api-python-client \
+    pre-commit
 
-# Install additional gems.
+# Install additional gems
 # RUN bundle install
 
-# Install global node packages.
+# Install global node packages
 RUN su vscode -c "source /usr/local/share/nvm/nvm.sh && \
     npm install -g \
     markdownlint-cli \
     " 2>&1
 
-# Install Terraform
+# Install terraform
 ENV TERRAFORM_VERSION=0.13.6
 RUN curl -sL https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/terraform_${TERRAFORM_VERSION}_linux_amd64.zip > terraform_${TERRAFORM_VERSION}_linux_amd64.zip && \
     unzip terraform_${TERRAFORM_VERSION}_linux_amd64.zip -d /bin && \
