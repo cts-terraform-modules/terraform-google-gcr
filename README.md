@@ -67,18 +67,14 @@ No Modules.
 | gcr\_bucket\_self\_link | The name of the bucket that supports the Container Registry. In the form of artifacts.{project}.appspot.com or {location}.artifacts.{project}.appspot.com if location is specified. |
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
-## Requirements
-
-These sections describe requirements for using this module.
-
-### Software
+### Dependencies
 
 The following dependencies must be available:
 
 -   [Terraform][terraform] v0.12
 -   [Terraform Provider for GCP][terraform-provider-gcp] plugin v3.9.0
 
-### Service Account
+#### Service account
 
 A service account with the following roles must be used to provision
 the resources of this module:
@@ -89,7 +85,7 @@ The [Project Factory module][project-factory-module] and the
 [IAM module][iam-module] may be used in combination to provision a
 service account with the necessary roles applied.
 
-### APIs
+#### APIs
 
 A project with the following APIs enabled must be used to host the
 resources of this module:
