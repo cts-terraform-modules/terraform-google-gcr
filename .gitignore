@@ -35,7 +35,6 @@ crash.log
 **/inspec.lock
 **/.kitchen
 **/kitchen.local.yml
-**/Gemfile.lock
 
 # Other files
 credentials.json
