@@ -1,10 +1,13 @@
 # terraform-google-gcr
 
-This module was generated from [terraform-google-module-template](https://github.com/terraform-google-modules/terraform-google-module-template/), which by default generates a module that simply creates a GCS bucket. As the module develops, this README should be updated.
+This module was generated from [terraform-google-module-template](https://github.com/terraform-google-modules/terraform-google-module-template/),
+which by default generates a module that simply creates a GCS bucket. As the
+module develops, this README should be updated.
 
-The resources/services/activations/deletions that this module will create/trigger are:
+The resources/services/activations/deletions that this module will
+create/trigger are:
 
-- Create a GCS bucket with the provided name
+-   Create a GCS bucket with the provided name
 
 ## Usage
 
@@ -24,13 +27,38 @@ Functional examples are included in the
 [examples](./examples/) directory.
 
 <!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+## Requirements
+
+| Name | Version |
+|------|---------|
+| terraform | >= 0.13 |
+
+## Providers
+
+| Name | Version |
+|------|---------|
+| google | n/a |
+
+## Modules
+
+No Modules.
+
+## Resources
+
+| Name |
+|------|
+| [google_container_registry](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/container_registry) |
+| [google_project_service](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/project_service) |
+| [google_storage_bucket_acl](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/storage_bucket_acl) |
+| [google_storage_default_object_access_control](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/storage_default_object_access_control) |
+
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|:----:|:-----:|:-----:|
-| image\_region | The location of the registry. One of ASIA, EU, US or not specified. If not specified, the registry will be global. | string | `""` | no |
-| project | The project ID to deploy to. | string | n/a | yes |
-| public | Whether the GCR is public or not. | bool | `"false"` | no |
+|------|-------------|------|---------|:--------:|
+| image\_region | The location of the registry. One of ASIA, EU, US or not specified. If not specified, the registry will be global. | `string` | `""` | no |
+| project | The project ID to deploy to. | `any` | n/a | yes |
+| public | Whether the GCR is public or not. | `bool` | `false` | no |
 
 ## Outputs
 
@@ -38,37 +66,32 @@ Functional examples are included in the
 |------|-------------|
 | gcr\_bucket\_name | The URI of the created resource. |
 | gcr\_bucket\_self\_link | The name of the bucket that supports the Container Registry. In the form of artifacts.{project}.appspot.com or {location}.artifacts.{project}.appspot.com if location is specified. |
-
 <!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
 
-## Requirements
-
-These sections describe requirements for using this module.
-
-### Software
+### Dependencies
 
 The following dependencies must be available:
 
-- [Terraform][terraform] v0.12
-- [Terraform Provider for GCP][terraform-provider-gcp] plugin v3.9.0
+-   [Terraform][terraform] v0.12
+-   [Terraform Provider for GCP][terraform-provider-gcp] plugin v3.9.0
 
-### Service Account
+#### Service account
 
 A service account with the following roles must be used to provision
 the resources of this module:
 
-- Storage Admin: `roles/storage.admin`
+-   Storage Admin: `roles/storage.admin`
 
 The [Project Factory module][project-factory-module] and the
 [IAM module][iam-module] may be used in combination to provision a
 service account with the necessary roles applied.
 
-### APIs
+#### APIs
 
 A project with the following APIs enabled must be used to host the
 resources of this module:
 
-- Google Cloud Storage JSON API: `storage-api.googleapis.com`
+-   Google Cloud Storage JSON API: `storage-api.googleapis.com`
 
 The [Project Factory module][project-factory-module] can be used to
 provision a project with the necessary APIs enabled.

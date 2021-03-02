@@ -1,20 +1,13 @@
-# Copyright 2018 Google LLC
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#      http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
 ---
 driver:
   name: terraform
+  # see https://github.com/newcontext-oss/kitchen-terraform/issues/390
+  # variable_files:
+  #   - test/integration/default/terraform.tfvars
+  variables:
+    image_region: EU
+    project: test-kitchen-testing-8
+    public: "false"
 
 provisioner:
   name: terraform
@@ -26,18 +19,14 @@ platforms:
   - name: default
 
 suites:
-  - name: simple_example
-    driver:
-      root_module_directory: test/fixtures/simple_example/
+  - name: default
     verifier:
-      color: false
       systems:
-        - name: simple_example local
-          backend: local
-          controls:
-            - gcloud
-            - gsutil
-        - name: simple_example gcp
+        - name: gcp
           backend: gcp
           controls:
-            - gcp
+            - gcp-tests
+        - name: local
+          backend: local
+          controls:
+            - local-tests
